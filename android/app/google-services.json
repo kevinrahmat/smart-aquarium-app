@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "768159757606",
+    "firebase_url": "https://smart-aquarium-telkom.firebaseio.com",
+    "project_id": "smart-aquarium-telkom",
+    "storage_bucket": "smart-aquarium-telkom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768159757606:android:c30eb43cc76a4809fb3de7",
+        "android_client_info": {
+          "package_name": "com.smartaquariumapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768159757606-ovec089uo0s3pt508t5mro9qch6m7kck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRBjC0U62_Wu4Sj31vcXyNE3iCTaorQ44"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768159757606-ovec089uo0s3pt508t5mro9qch6m7kck.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
