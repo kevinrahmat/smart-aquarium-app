@@ -32,7 +32,7 @@ function App() {
           name="Controller"
           component={ControllerScreen}
           options={{
-            tabBarLabel: 'Monitoring',
+            tabBarLabel: 'Controlling',
             tabBarIcon: ({ color, size }) => (
               <Image
                 source={require('./src/assets/controlling.png')}

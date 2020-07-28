@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import database from '@react-native-firebase/database';
 
 export default class ControllerScreen extends React.Component {
@@ -10,12 +10,20 @@ export default class ControllerScreen extends React.Component {
     };
   }
 
+  handleChangeStatus(data) {
+    database()
+      .ref('/status')
+      .update({
+        ...data,
+      })
+      .then(() => console.log('Data updated.'));
+  }
+
   componentDidMount() {
     database()
       .ref('/')
       .on('value', (snapshot) => {
         const data = snapshot.val();
-        console.log('Status data: ', data);
         this.setState({data});
       });
   }
@@ -52,26 +60,38 @@ export default class ControllerScreen extends React.Component {
     return (
       <View style={style.container}>
         <View style={style.content}>
-          <View style={style.card}>
+          <TouchableOpacity
+            onPress={this.handleChangeStatus.bind(this, {
+              auto_mode: !auto_mode,
+            })}
+            style={style.card}>
             <View>
               <Text style={[style.title, {marginBottom: 10}]}>Auto Mode</Text>
               <Text style={style.subTitle}>
                 {auto_mode ? 'Auto' : 'Manual'}
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={[style.content, style.height1]}>
-          <View style={[style.card, {marginRight: 20}]}>
+          <TouchableOpacity
+            onPress={this.handleChangeStatus.bind(this, {
+              pump: !pump,
+            })}
+            style={[style.card, {marginRight: 20}]}>
             <Text style={[style.title, {marginBottom: 10}]}>Pump Status </Text>
             <Text style={style.subTitle}>{pump ? 'ON' : 'OFF'}</Text>
-          </View>
-          <View style={[style.card]}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this.handleChangeStatus.bind(this, {
+              heater: !heater,
+            })}
+            style={[style.card]}>
             <Text style={[style.title, {marginBottom: 10}]}>
               Heater Status{' '}
             </Text>
             <Text style={style.subTitle}>{heater ? 'ON' : 'OFF'}</Text>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={[style.content, style.height1]}>
           <View style={[style.card, {marginRight: 20}]}>
@@ -124,6 +144,7 @@ const style = StyleSheet.create({
     backgroundColor: 'white',
   },
   title: {
+    alignSelf: 'center',
     fontSize: 12,
   },
   subTitle: {
