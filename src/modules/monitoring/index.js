@@ -2,7 +2,7 @@ import * as React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import database from '@react-native-firebase/database';
 
-export default class DashboardScreen extends React.Component {
+export default class MonitoringScreen extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -15,7 +15,6 @@ export default class DashboardScreen extends React.Component {
       .ref('/')
       .on('value', (snapshot) => {
         const data = snapshot.val();
-        console.log('Status data: ', data);
         this.setState({data});
       });
   }
@@ -53,10 +52,16 @@ export default class DashboardScreen extends React.Component {
       <View style={style.container}>
         <View style={[style.content, style.height1]}>
           <View style={[style.card, {marginRight: 20}]}>
-            <Text>{temperature_current_value}°</Text>
+            <View style={{ marginBottom: 10 }}>
+              <Text style={style.title}>Current Temperature</Text>
+            </View>
+            <Text style={style.subTitle}>{temperature_current_value}°C</Text>
           </View>
           <View style={style.card}>
-            <Text>{turbidity_current_value} NTU</Text>
+            <View style={{ marginBottom: 10 }}>
+              <Text style={style.title}>Current Turbidity</Text>
+            </View>
+            <Text style={style.subTitle}>{turbidity_current_value} NTU</Text>
           </View>
         </View>
 
@@ -77,19 +82,19 @@ export default class DashboardScreen extends React.Component {
           <View style={style.card}>
             <View style={[style.inCardList, {marginBottom: 20}]}>
               <Text>Controller Mode </Text>
-              <Text>{auto_mode ? "Auto" : "Manual"}</Text>
+              <Text>{auto_mode ? 'Auto' : 'Manual'}</Text>
             </View>
-            <View style={[style.inCardList, { marginBottom: 20 }]}>
+            <View style={[style.inCardList, {marginBottom: 20}]}>
               <Text>VLC Status </Text>
-              <Text>{vlc ? "Working" : "Not Working"}</Text>
+              <Text>{vlc ? 'Working' : 'Not Working'}</Text>
             </View>
-            <View style={[style.inCardList, { marginBottom: 20 }]}>
+            <View style={[style.inCardList, {marginBottom: 20}]}>
               <Text>Pump Status </Text>
-              <Text>{pump ? "Working" : "Not Working"}</Text>
+              <Text>{pump ? 'Working' : 'Not Working'}</Text>
             </View>
             <View style={[style.inCardList]}>
               <Text>Heater Status </Text>
-              <Text>{heater ? "Working" : "Not Working"}</Text>
+              <Text>{heater ? 'Working' : 'Not Working'}</Text>
             </View>
           </View>
         </View>
@@ -107,7 +112,7 @@ const style = StyleSheet.create({
     width: '100%',
     borderRadius: 5,
     flexDirection: 'row',
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
   container: {
     flex: 1,
@@ -128,5 +133,11 @@ const style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
+  },
+  title: {
+    fontSize: 12,
+  },
+  subTitle: {
+    fontSize: 24,
   },
 });

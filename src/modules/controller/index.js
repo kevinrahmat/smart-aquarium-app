@@ -53,28 +53,38 @@ export default class ControllerScreen extends React.Component {
       <View style={style.container}>
         <View style={style.content}>
           <View style={style.card}>
-            <View style={[style.inCardList]}>
-              <Text>Auto Mode </Text>
-              <Text>{auto_mode ? 'Auto' : 'Manual'}</Text>
+            <View>
+              <Text style={[style.title, {marginBottom: 10}]}>Auto Mode</Text>
+              <Text style={style.subTitle}>
+                {auto_mode ? 'Auto' : 'Manual'}
+              </Text>
             </View>
           </View>
         </View>
         <View style={[style.content, style.height1]}>
-          <View style={[style.inCardList, {marginRight: 20}]}>
-            <Text>Pump Status </Text>
-            <Text>{pump ? 'On' : 'Off'}</Text>
+          <View style={[style.card, {marginRight: 20}]}>
+            <Text style={[style.title, {marginBottom: 10}]}>Pump Status </Text>
+            <Text style={style.subTitle}>{pump ? 'ON' : 'OFF'}</Text>
           </View>
-          <View style={[style.inCardList]}>
-            <Text>Heater Status </Text>
-            <Text>{heater ? 'On' : 'Off'}</Text>
+          <View style={[style.card]}>
+            <Text style={[style.title, {marginBottom: 10}]}>
+              Heater Status{' '}
+            </Text>
+            <Text style={style.subTitle}>{heater ? 'ON' : 'OFF'}</Text>
           </View>
         </View>
         <View style={[style.content, style.height1]}>
           <View style={[style.card, {marginRight: 20}]}>
-            <Text>{temperature_current_value}°</Text>
+            <View style={{marginBottom: 10}}>
+              <Text style={style.title}>Minimum Temperature</Text>
+            </View>
+            <Text style={style.subTitle}>{temperature_current_value}°</Text>
           </View>
           <View style={style.card}>
-            <Text>{turbidity_current_value} NTU</Text>
+            <View style={{marginBottom: 10}}>
+              <Text style={style.title}>Maximum Turbidity</Text>
+            </View>
+            <Text style={style.subTitle}>{turbidity_current_value} NTU</Text>
           </View>
         </View>
       </View>
@@ -91,7 +101,7 @@ const style = StyleSheet.create({
     width: '100%',
     borderRadius: 5,
     flexDirection: 'row',
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
   container: {
     flex: 1,
@@ -112,5 +122,11 @@ const style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
+  },
+  title: {
+    fontSize: 12,
+  },
+  subTitle: {
+    fontSize: 34,
   },
 });
