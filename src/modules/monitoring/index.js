@@ -51,29 +51,45 @@ export default class MonitoringScreen extends React.Component {
     return (
       <View style={style.container}>
         <View style={[style.content, style.height1]}>
-          <View style={[style.card, {marginRight: 20}]}>
-            <View style={{ marginBottom: 10 }}>
-              <Text style={style.title}>Current Temperature</Text>
+          <View
+            style={[style.card, {marginRight: 20, backgroundColor: '#498CF1'}]}>
+            <View style={{maxWidth: 100}}>
+              <Text style={[style.title, {color: 'white'}]}>
+                Current Temperature
+              </Text>
             </View>
-            <Text style={style.subTitle}>{temperature_current_value}°C</Text>
+            <View
+              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={[style.subTitle, {color: 'white'}]}>
+                {temperature_current_value}°C
+              </Text>
+            </View>
           </View>
-          <View style={style.card}>
-            <View style={{ marginBottom: 10 }}>
-              <Text style={style.title}>Current Turbidity</Text>
+          <View style={[style.card, {backgroundColor: '#B149F1'}]}>
+            <View style={{maxWidth: 60}}>
+              <Text style={[style.title, {color: 'white'}]}>
+                Current Turbidity
+              </Text>
             </View>
-            <Text style={style.subTitle}>{turbidity_current_value} NTU</Text>
+            <View
+              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text
+                style={[style.subTitle, {color: 'white', alignSelf: 'center'}]}>
+                {turbidity_current_value} NTU
+              </Text>
+            </View>
           </View>
         </View>
 
         <View style={style.content}>
-          <View style={style.card}>
-            <View style={[style.inCardList, {marginBottom: 20}]}>
+          <View style={[style.card, { justifyContent: 'space-between' }]}>
+            <View style={style.inCardList}>
               <Text>Minimum Temperature </Text>
-              <Text>{temperature_min_value}°</Text>
+              <Text style={{ fontWeight: 'bold' }}>{temperature_min_value}°</Text>
             </View>
             <View style={style.inCardList}>
               <Text>Maximum Turbidity </Text>
-              <Text>{turbidity_min_value} NTU</Text>
+              <Text style={{ fontWeight: 'bold' }}>{turbidity_min_value} NTU</Text>
             </View>
           </View>
         </View>
@@ -82,19 +98,19 @@ export default class MonitoringScreen extends React.Component {
           <View style={style.card}>
             <View style={[style.inCardList, {marginBottom: 20}]}>
               <Text>Controller Mode </Text>
-              <Text>{auto_mode ? 'Auto' : 'Manual'}</Text>
+              <Text style={{ fontWeight: 'bold' }}>{auto_mode ? 'Auto' : 'Manual'}</Text>
             </View>
             <View style={[style.inCardList, {marginBottom: 20}]}>
               <Text>VLC Status </Text>
-              <Text>{vlc ? 'Working' : 'Not Working'}</Text>
+              <Text style={{ fontWeight: 'bold' }}>{vlc ? 'Working' : 'Not Working'}</Text>
             </View>
             <View style={[style.inCardList, {marginBottom: 20}]}>
               <Text>Pump Status </Text>
-              <Text>{pump ? 'Working' : 'Not Working'}</Text>
+              <Text style={{ fontWeight: 'bold' }}>{pump ? 'Working' : 'Not Working'}</Text>
             </View>
             <View style={[style.inCardList]}>
               <Text>Heater Status </Text>
-              <Text>{heater ? 'Working' : 'Not Working'}</Text>
+              <Text style={{ fontWeight: 'bold' }}>{heater ? 'Working' : 'Not Working'}</Text>
             </View>
           </View>
         </View>
@@ -112,11 +128,11 @@ const style = StyleSheet.create({
     width: '100%',
     borderRadius: 5,
     flexDirection: 'row',
-    // backgroundColor: 'red',
   },
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: 'white',
   },
   content: {
     flex: 1,
@@ -130,14 +146,14 @@ const style = StyleSheet.create({
     padding: 20,
     elevation: 5,
     borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: 'white',
   },
   title: {
-    fontSize: 12,
+    fontSize: 14,
+    fontWeight: 'normal',
   },
   subTitle: {
-    fontSize: 24,
+    fontSize: 32,
+    fontWeight: '100',
   },
 });

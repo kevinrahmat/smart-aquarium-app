@@ -64,10 +64,28 @@ export default class ControllerScreen extends React.Component {
             onPress={this.handleChangeStatus.bind(this, {
               auto_mode: !auto_mode,
             })}
-            style={style.card}>
+            style={[
+              style.card,
+              {
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#60BB64',
+              },
+            ]}>
             <View>
-              <Text style={[style.title, {marginBottom: 10}]}>Auto Mode</Text>
-              <Text style={style.subTitle}>
+              <Text
+                style={[
+                  style.title,
+                  {
+                    color: 'white',
+                    marginBottom: 10,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  },
+                ]}>
+                Mode
+              </Text>
+              <Text style={[style.subTitle, {color: 'white'}]}>
                 {auto_mode ? 'Auto' : 'Manual'}
               </Text>
             </View>
@@ -78,7 +96,10 @@ export default class ControllerScreen extends React.Component {
             onPress={this.handleChangeStatus.bind(this, {
               pump: !pump,
             })}
-            style={[style.card, {marginRight: 20}]}>
+            style={[
+              style.card,
+              {marginRight: 20, alignItems: 'center', justifyContent: 'center'},
+            ]}>
             <Text style={[style.title, {marginBottom: 10}]}>Pump Status </Text>
             <Text style={style.subTitle}>{pump ? 'ON' : 'OFF'}</Text>
           </TouchableOpacity>
@@ -86,7 +107,10 @@ export default class ControllerScreen extends React.Component {
             onPress={this.handleChangeStatus.bind(this, {
               heater: !heater,
             })}
-            style={[style.card]}>
+            style={[
+              style.card,
+              {alignItems: 'center', justifyContent: 'center'},
+            ]}>
             <Text style={[style.title, {marginBottom: 10}]}>
               Heater Status{' '}
             </Text>
@@ -94,17 +118,33 @@ export default class ControllerScreen extends React.Component {
           </TouchableOpacity>
         </View>
         <View style={[style.content, style.height1]}>
-          <View style={[style.card, {marginRight: 20}]}>
-            <View style={{marginBottom: 10}}>
-              <Text style={style.title}>Minimum Temperature</Text>
+          <View
+            style={[style.card, {marginRight: 20, backgroundColor: '#498CF1'}]}>
+            <View style={{maxWidth: 100}}>
+              <Text style={[style.title, {color: 'white'}]}>
+                Minimum Temperature
+              </Text>
             </View>
-            <Text style={style.subTitle}>{temperature_current_value}°</Text>
+            <View
+              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={[style.subTitle, {color: 'white'}]}>
+                {temperature_min_value}°C
+              </Text>
+            </View>
           </View>
-          <View style={style.card}>
-            <View style={{marginBottom: 10}}>
-              <Text style={style.title}>Maximum Turbidity</Text>
+          <View style={[style.card, {backgroundColor: '#B149F1'}]}>
+            <View style={{maxWidth: 80}}>
+              <Text style={[style.title, {color: 'white'}]}>
+                Maximum Turbidity
+              </Text>
             </View>
-            <Text style={style.subTitle}>{turbidity_current_value} NTU</Text>
+            <View
+              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text
+                style={[style.subTitle, {color: 'white', alignSelf: 'center'}]}>
+                {turbidity_min_value} NTU
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -121,11 +161,12 @@ const style = StyleSheet.create({
     width: '100%',
     borderRadius: 5,
     flexDirection: 'row',
-    // backgroundColor: 'red',
+    backgroundColor: 'white',
   },
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: 'white',
   },
   content: {
     flex: 1,
@@ -139,13 +180,11 @@ const style = StyleSheet.create({
     padding: 20,
     elevation: 5,
     borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: 'white',
   },
   title: {
     alignSelf: 'center',
-    fontSize: 12,
+    fontSize: 14,
   },
   subTitle: {
     fontSize: 34,
