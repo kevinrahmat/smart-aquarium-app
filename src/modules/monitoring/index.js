@@ -29,11 +29,6 @@ export default class MonitoringScreen extends React.Component {
     } = data || {};
 
     const {
-      temperature: temperature_current_value,
-      turbidity: turbidity_current_value,
-    } = JSON.parse(sensor);
-
-    const {
       auto_mode = false,
       heater = false,
       pump = false,
@@ -42,10 +37,12 @@ export default class MonitoringScreen extends React.Component {
     const {
       min_value: turbidity_min_value = 0,
       status: turbidity_status = false,
+      value: turbidity_current_value = 0,
     } = turbidity;
     const {
       min_value: temperature_min_value = 0,
       status: temperature_status = false,
+      value: temperature_current_value = 0,
     } = temperature;
 
     return (

@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Image} from 'react-native';
-// import auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -16,60 +16,61 @@ import {
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-export default class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isLoggedIn: true,
-    };
+function App() {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
   }
-  handleLogin () {
-    this.setState({
-      isLoggedIn: true,
-    });
-  }
-  render() {
-    const {isLoggedIn} = this.state;
-    return (
-      <NavigationContainer>
-        {isLoggedIn ? (
-          <>
-            <Tab.Navigator>
-              <Tab.Screen
-                name="Monitoring"
-                component={MonitoringScreen}
-                options={{
-                  tabBarLabel: 'Monitoring',
-                  tabBarIcon: ({color, size}) => (
-                    <Image source={require('./src/assets/monitoring.png')} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Controller"
-                component={ControllerScreen}
-                options={{
-                  tabBarLabel: 'Controlling',
-                  tabBarIcon: ({color, size}) => (
-                    <Image source={require('./src/assets/controlling.png')} />
-                  ),
-                }}
-              />
-            </Tab.Navigator>
-          </>
-        ) : (
-          <>
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
+
+  return (
+    <NavigationContainer>
+      {user ? (
+        <>
+          <Tab.Navigator>
+            <Tab.Screen
+              name="Monitoring"
+              component={MonitoringScreen}
+              options={{
+                tabBarLabel: 'Monitoring',
+                tabBarIcon: ({color, size}) => (
+                  <Image source={require('./src/assets/monitoring.png')} />
+                ),
               }}
-              initialRouteName="Home">
-              <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen name="Register" component={RegisterScreen} />
-            </Stack.Navigator>
-          </>
-        )}
-      </NavigationContainer>
-    );
-  }
+            />
+            <Tab.Screen
+              name="Controller"
+              component={ControllerScreen}
+              options={{
+                tabBarLabel: 'Controlling',
+                tabBarIcon: ({color, size}) => (
+                  <Image source={require('./src/assets/controlling.png')} />
+                ),
+              }}
+            />
+          </Tab.Navigator>
+        </>
+      ) : (
+        <>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+            initialRouteName="Login">
+            <Stack.Screen name="Login" component={LoginScreen}/>
+            <Stack.Screen name="Register" component={RegisterScreen} />
+          </Stack.Navigator>
+        </>
+      )}
+    </NavigationContainer>
+  );
 }
+
+export default App;

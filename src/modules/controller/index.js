@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
+import {View, Text, StyleSheet, TouchableOpacity, Button} from 'react-native';
 
 export default class ControllerScreen extends React.Component {
   constructor() {
@@ -17,6 +18,12 @@ export default class ControllerScreen extends React.Component {
         ...data,
       })
       .then(() => console.log('Data updated.'));
+  }
+
+  handleLogout() {
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
   }
 
   componentDidMount() {
@@ -98,10 +105,26 @@ export default class ControllerScreen extends React.Component {
             })}
             style={[
               style.card,
-              {marginRight: 20, alignItems: 'center', justifyContent: 'center'},
+              {alignItems: 'center', justifyContent: 'center', marginRight: 20},
+              pump
+                ? {backgroundColor: '#60BB64'}
+                : {borderWidth: 1, borderColor: '#F14D49'},
             ]}>
-            <Text style={[style.title, {marginBottom: 10}]}>Pump Status </Text>
-            <Text style={style.subTitle}>{pump ? 'ON' : 'OFF'}</Text>
+            <Text
+              style={[
+                style.title,
+                {marginBottom: 10},
+                pump ? {color: 'white'} : {color: '#F14D49'},
+              ]}>
+              Pump Status{' '}
+            </Text>
+            <Text
+              style={[
+                style.subTitle,
+                pump ? {color: 'white'} : {color: '#F14D49'},
+              ]}>
+              {pump ? 'ON' : 'OFF'}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={this.handleChangeStatus.bind(this, {
@@ -110,11 +133,25 @@ export default class ControllerScreen extends React.Component {
             style={[
               style.card,
               {alignItems: 'center', justifyContent: 'center'},
+              heater
+                ? {backgroundColor: '#60BB64'}
+                : {borderWidth: 1, borderColor: '#F14D49'},
             ]}>
-            <Text style={[style.title, {marginBottom: 10}]}>
+            <Text
+              style={[
+                style.title,
+                {marginBottom: 10},
+                heater ? {color: 'white'} : {color: '#F14D49'},
+              ]}>
               Heater Status{' '}
             </Text>
-            <Text style={style.subTitle}>{heater ? 'ON' : 'OFF'}</Text>
+            <Text
+              style={[
+                style.subTitle,
+                heater ? {color: 'white'} : {color: '#F14D49'},
+              ]}>
+              {heater ? 'ON' : 'OFF'}
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={[style.content, style.height1]}>
@@ -146,6 +183,13 @@ export default class ControllerScreen extends React.Component {
               </Text>
             </View>
           </View>
+        </View>
+        <View>
+          <Button
+            style={style.submitBtn}
+            title="Logout"
+            onPress={this.handleLogout.bind(this)}
+          />
         </View>
       </View>
     );
